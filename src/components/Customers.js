@@ -108,6 +108,7 @@ export default function Customers() {
     }
 
     const addTrainingToCustomer = (training) => {
+        console.log(JSON.stringify(training))
         fetch('https://customerrest.herokuapp.com/api/trainings', {
             method: 'POST',
             headers: {
@@ -118,7 +119,7 @@ export default function Customers() {
         .then(res => {
             if (res.ok) {
                 fetchCustomers()
-                setMsg('Training added to customer')
+                setMsg('Training added')
                 setOpen(true)
             }
         })
@@ -147,7 +148,7 @@ export default function Customers() {
     return (
         <>
         <AddCustomer addCustomer={addCustomer}/>
-        <div className="ag-theme-material" style={{height: 640, width: '100%'}}>
+        <div className="ag-theme-material" style={{height: 660, width: 'auto', margin: 10}}>
            <AgGridReact
                rowData={customers}
                columnDefs={columns}

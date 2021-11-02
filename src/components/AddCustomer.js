@@ -30,7 +30,9 @@ export default function AddCustomer(props) {
 
     return (
         <>
+        <div style= {{ textAlign: 'center', marginTop: 20 }}>
         <Button style={{ margin: 'auto'}} variant="outlined" onClick={handleClickOpen}>Add Customer</Button>
+        </div>
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add Customer</DialogTitle>
             <DialogContent>

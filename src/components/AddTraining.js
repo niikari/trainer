@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function AddTraining(props) {
 
     const [customer, setCustomer] = useState(props.customer)
-    const [training, setTraining] = useState({date: '', duration: 0, activity: ''})
+    const [training, setTraining] = useState({customer: customer.links[0].href})
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -26,7 +26,6 @@ export default function AddTraining(props) {
     }
 
     const handleAdd = () => {
-        setTraining({...training, 'customer': customer.links[0].href})
         props.addTraining(training)
     }
 
