@@ -9,12 +9,15 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import AddCustomer from "./AddCustomer";
 import AddTraining from "./AddTraining";
+import UserStats from "./UserStats";
+import Stack from '@mui/material/Stack';
 
 export default function Customers() {
 
     const [customers, setCustomers] = useState([])
     const [customer, setCustomer] = useState({})
 
+    const [gridApi, setGridApi] = useState()
     const gridRef = useRef()
 
     // SNACKBAR JA VIESTI SNACKBARIIN ALKAA
@@ -43,6 +46,11 @@ export default function Customers() {
       )
 
     // SNACKBAR LOPPUU
+
+    const gridIsReady = (params) => {
+        gridRef.current = params.api
+        setGridApi(params.api)
+    }
 
     const editStarts = () => {
         setCustomer(gridRef.current.getSelectedNodes()[0].data)
@@ -140,6 +148,10 @@ export default function Customers() {
         },
         {
             width: 60,
+            cellRendererFramework: params => <UserStats customer={params.data} />
+        },
+        {
+            width: 60,
             cellRendererFramework: params => <Button onClick={() => deleteCustomer(params.data.links[0].href)} startIcon={<DeleteIcon color="error"/>}></Button>
         }
 
@@ -147,7 +159,10 @@ export default function Customers() {
 
     return (
         <>
-        <AddCustomer addCustomer={addCustomer}/>
+        <Stack direction="row" style={{ margin: 20 }} justifyContent="space-between">
+            <AddCustomer addCustomer={addCustomer}/>
+            <Button variant="outlined" onClick={() => gridApi.exportDataAsCsv()}>Export CSV</Button>
+        </Stack>
         <div className="ag-theme-material" style={{height: 660, width: 'auto', margin: 10}}>
            <AgGridReact
                rowData={customers}
@@ -156,7 +171,7 @@ export default function Customers() {
                paginationPageSize={10}
                suppressCellSelection={true}
                animateRows={true}
-               onGridReady={params => gridRef.current = params.api}
+               onGridReady={gridIsReady}
                rowSelection="single"
                onCellEditingStarted={editStarts}
                onCellEditingStopped={editCustomer}>               

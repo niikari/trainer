@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import dayjs from 'dayjs'
 
 export default function AddTraining(props) {
 
@@ -26,6 +27,11 @@ export default function AddTraining(props) {
     }
 
     const handleAdd = () => {
+        const date = dayjs(training.date)
+        const time = training.time.split(':')
+        date.set('hour', 10)
+
+        //console.log(date)
         props.addTraining(training)
     }
 
