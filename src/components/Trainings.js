@@ -79,6 +79,9 @@ export default function Trainings() {
         {field: 'activity', filter: true, floatingFilter: true, sortable: true},      
         {
             headerName: "Trainer",
+            filter: true,
+            sortable: true,
+            floatingFilter: true,
             cellRendererFramework: params => params.data.customer.firstname + " " + params.data.customer.lastname
         }, 
         {

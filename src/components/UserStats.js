@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import UserStatsChart from "./UserStatsChart";
 
 export default function UserStats(props) {
 
@@ -41,17 +41,7 @@ export default function UserStats(props) {
             {`${props.customer.firstname} ${props.customer.lastname} training stats`}
             </DialogTitle>
             <DialogContent>
-                <BarChart                                               
-                    width={500}
-                    height={500}
-                    data={userTrainings}
-                    margin={{ top: 15, right: 20, left: 10, bottom: 5 }}
-                >
-                    <XAxis dataKey="activity" />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Bar barSize={80}  dataKey="duration" fill="#82ca9d" />
-                    <YAxis />
-                </BarChart>
+                <UserStatsChart userTrainings={userTrainings} />
             
             </DialogContent>
             <DialogActions>

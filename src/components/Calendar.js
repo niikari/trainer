@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import dayjs from 'dayjs'
 import Loading from './Loading';
 
 export default function Calendar() {

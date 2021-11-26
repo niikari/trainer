@@ -11,6 +11,7 @@ import AddCustomer from "./AddCustomer";
 import AddTraining from "./AddTraining";
 import UserStats from "./UserStats";
 import Stack from '@mui/material/Stack';
+import dayjs from 'dayjs'
 
 export default function Customers() {
 
@@ -115,14 +116,18 @@ export default function Customers() {
         }
     }
 
-    const addTrainingToCustomer = (training) => {
-        console.log(JSON.stringify(training))
+    const addTrainingToCustomer = (training) => {        
+        let newDate = dayjs(training.date)
+        const time = training.time.split(":")
+        newDate = newDate.hour(time[0])
+        newDate = newDate.minute(time[1])
+
         fetch('https://customerrest.herokuapp.com/api/trainings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(training)
+            body: JSON.stringify({...training, date: newDate.toISOString()})
         })
         .then(res => {
             if (res.ok) {
